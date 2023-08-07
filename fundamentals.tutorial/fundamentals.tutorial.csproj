@@ -10,9 +10,11 @@
   <ItemGroup>
     <None Remove="OtherAccountTypes\" />
     <None Remove="BasicAccount\" />
+    <None Remove="Publications\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OtherAccountTypes\" />
     <Folder Include="BasicAccount\" />
+    <Folder Include="Publications\" />
   </ItemGroup>
 </Project>
