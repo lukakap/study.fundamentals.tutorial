@@ -11,10 +11,12 @@
     <None Remove="OtherAccountTypes\" />
     <None Remove="BasicAccount\" />
     <None Remove="Publications\" />
+    <None Remove="SafeCast\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OtherAccountTypes\" />
     <Folder Include="BasicAccount\" />
     <Folder Include="Publications\" />
+    <Folder Include="SafeCast\" />
   </ItemGroup>
 </Project>
