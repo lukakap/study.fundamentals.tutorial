@@ -12,11 +12,13 @@
     <None Remove="BasicAccount\" />
     <None Remove="Publications\" />
     <None Remove="SafeCast\" />
+    <None Remove="PatternMatchingForDataAndTypeDrivenAlgorithms\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OtherAccountTypes\" />
     <Folder Include="BasicAccount\" />
     <Folder Include="Publications\" />
     <Folder Include="SafeCast\" />
+    <Folder Include="PatternMatchingForDataAndTypeDrivenAlgorithms\" />
   </ItemGroup>
 </Project>
