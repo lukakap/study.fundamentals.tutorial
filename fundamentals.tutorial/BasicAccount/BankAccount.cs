@@ -1,10 +1,11 @@
 ﻿using System;
-namespace fundamentals.tutorial;
+namespace fundamentals.tutorial.BasicAccount;
 
 public class BankAccount
 {
     private static int s_accountNumberSeed = 1234567890;
     private List<Transaction> _allTransactions = new List<Transaction>();
+    private readonly decimal _minimumBalance;
 
     public string? Number { get; }
     public string? Owner { get; set; }
@@ -22,13 +23,17 @@ public class BankAccount
         }
     }
 
-    public BankAccount(string name, decimal initialBalance)
+    public BankAccount(string name, decimal initialBalance) : this(name, initialBalance, 0) { }
+
+    public BankAccount(string name, decimal initialBalance, decimal minimumBalance)
     {
         Number = s_accountNumberSeed.ToString();
         s_accountNumberSeed++;
 
         Owner = name;
-        MakeDeposit(initialBalance, DateTime.Now, "Initial balance");
+        _minimumBalance = minimumBalance;
+        if (initialBalance > 0)
+            MakeDeposit(initialBalance, DateTime.Now, "Initial balance");
     }
 
     public void MakeDeposit(decimal amount, DateTime date, string note)
@@ -47,12 +52,37 @@ public class BankAccount
         {
             throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positive");
         }
-        if (Balance - amount < 0)
+        Transaction? overdraftTransaction = CheckWithdrawalLimit(Balance - amount < _minimumBalance);
+        Transaction? withdrawal = new(-amount, date, note);
+        _allTransactions.Add(withdrawal);
+        if (overdraftTransaction != null)
+            _allTransactions.Add(overdraftTransaction);
+    }
+
+    protected virtual Transaction? CheckWithdrawalLimit(bool isOverdrawn)
+    {
+        if (isOverdrawn)
         {
             throw new InvalidOperationException("Not sufficient funds for this withdrawal");
         }
-        var withdrawal = new Transaction(-amount, date, note);
-        _allTransactions.Add(withdrawal);
+        else
+        {
+            /*
+             In C#, the default keyword is used to obtain the default value of a type. The default value is:
+
+            - null for reference types
+            - 0 for numeric value types
+            - false for the bool type
+            - etc.
+
+             The default keyword returns the default value for the type it's applied to.
+            In the context of the CheckWithdrawalLimit method, the return type is Transaction?,
+            which is a nullable reference type. The default value for a reference type is null.
+             
+             */
+
+            return default;
+        }
     }
 
     public string GetAccountHistory()
@@ -75,6 +105,8 @@ public class BankAccount
 
         return report.ToString();
     }
+
+    public virtual void PerformMonthEndTransactions() { }
 }
 
 

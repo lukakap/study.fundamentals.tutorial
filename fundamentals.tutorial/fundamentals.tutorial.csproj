@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="OtherAccountTypes\" />
+    <None Remove="BasicAccount\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OtherAccountTypes\" />
+    <Folder Include="BasicAccount\" />
+  </ItemGroup>
 </Project>

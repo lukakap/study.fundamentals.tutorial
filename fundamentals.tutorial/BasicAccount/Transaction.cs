@@ -1,5 +1,5 @@
 ﻿using System;
-namespace fundamentals.tutorial;
+namespace fundamentals.tutorial.BasicAccount;
 
 public class Transaction
 {
